@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoints xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime"
+           version="2.0">
+    <endpoint
+            name="ImageService"
+            implementation="com.example.lab4.ImageServiceImpl"
+            url-pattern="/ImageService"/>
+    <endpoint
+            name="EventService"
+            implementation="com.example.lab4.EventServiceImpl"
+            url-pattern="/EventService"/>
+
+</endpoints>
