@@ -6,17 +6,19 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 import java.awt.*;
 import java.io.FileNotFoundException;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @WebService
 public interface EventService {
 
     @WebMethod
-    List<Event> getEventsByDate(LocalDate localDate);
-
+    List<Event> getEventsByDay(int day);
     @WebMethod
     List<Event> getEventsByWeek(Integer weekNumber);
+    @WebMethod
+    List<Event> getEventsByMonth(Integer monthNumber);
 
     @WebMethod
     String getDetailsByEvent(Event event) throws Throwable;
@@ -31,5 +33,8 @@ public interface EventService {
     List<Event> getEvents();
 
     @WebMethod
-    Image downloadFile() throws FileNotFoundException, DocumentException;
+    Event getEventById(UUID id) throws Exception;
+
+    @WebMethod
+    byte[] downloadFile() throws FileNotFoundException, DocumentException;
 }

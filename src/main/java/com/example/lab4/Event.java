@@ -1,28 +1,28 @@
 package com.example.lab4;
 
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.UUID;
 
 public class Event  {
+    private UUID id;
     private String name;
     private String type;
     private String details;
-    private LocalDate eventDate;
-    private Integer month;
-    private Integer year;
-    private Integer weekNumber;
+    private Date eventDate;
 
-    public Event(String name, String type, String details, LocalDate eventDate, Integer month, Integer year, Integer weekNumber) {
+    public Event() {}
+
+    public Event(UUID id, String name, String type, String details, Date eventDate, Integer month, Integer year, Integer weekNumber) {
+        this.id = id;
         this.name = name;
         this.type = type;
         this.details = details;
         this.eventDate = eventDate;
-        this.month = month;
-        this.year = year;
-        this.weekNumber = weekNumber;
     }
+
+    public UUID getId () { return id; }
+    public void setId (UUID id) { this.id = id; }
 
     public String getName() {
         return name;
@@ -48,35 +48,40 @@ public class Event  {
         this.details = details;
     }
 
-    public LocalDate getEventDate() {
+    public Date getEventDate() {
         return eventDate;
     }
 
-    public void setEventDate(LocalDate eventDate) {
+    public void setEventDate(Date eventDate) {
         this.eventDate = eventDate;
     }
 
-    public Integer getMonth() {
-        return month;
+    public Integer getDay() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(eventDate);
+
+        return calendar.get(Calendar.DAY_OF_YEAR);
     }
 
-    public void setMonth(Integer month) {
-        this.month = month;
+    public Integer getMonth() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(eventDate);
+
+        return calendar.get(Calendar.MONTH);
     }
 
     public Integer getYear() {
-        return year;
-    }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(eventDate);
 
-    public void setYear(Integer year) {
-        this.year = year;
+        return calendar.get(Calendar.YEAR);
     }
-
     public Integer getWeekNumber() {
-        return weekNumber;
-    }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setMinimalDaysInFirstWeek(1);
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+        calendar.setTime(eventDate);
 
-    public void setWeekNumber(Integer weekNumber) {
-        this.weekNumber = weekNumber;
+        return calendar.get(Calendar.WEEK_OF_YEAR);
     }
 }

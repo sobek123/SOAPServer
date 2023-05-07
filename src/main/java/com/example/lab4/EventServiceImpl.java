@@ -12,13 +12,11 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.MTOM;
 import javax.xml.ws.soap.SOAPBinding;
 import java.awt.Image;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.time.LocalDate;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @WebService(endpointInterface = "com.example.lab4.EventService")
 @MTOM
@@ -26,13 +24,18 @@ import java.util.List;
 public class EventServiceImpl implements EventService {
     EventList eventList = new EventList();
     @Override
-    public List<Event> getEventsByDate(LocalDate localDate) {
-        return eventList.getEventsByDate(localDate);
+    public List<Event> getEventsByDay(int day) {
+        return eventList.getEventsByDay(day);
     }
 
     @Override
     public List<Event> getEventsByWeek(Integer weekNumber) {
         return eventList.getEventsByWeek(weekNumber);
+    }
+
+    @Override
+    public List<Event> getEventsByMonth(Integer monthNumber) {
+        return eventList.getEventsByMonth(monthNumber);
     }
 
     @Override
@@ -56,9 +59,16 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Image downloadFile() throws FileNotFoundException, DocumentException {
+    public Event getEventById(UUID id) throws Exception {
+        return eventList.getEventById(id);
+    }
+
+    @Override
+    public byte[] downloadFile() throws DocumentException {
         Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream("zestawienie.pdf"));
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+        PdfWriter.getInstance(document, out);
 
         document.open();
 
@@ -98,11 +108,7 @@ public class EventServiceImpl implements EventService {
         document.add(table);
         document.close();
 
-        try {
-            return ImageIO.read(new File("C:\\Users\\Maciek\\Desktop\\" ));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        return out.toByteArray();
     }
 
 }
