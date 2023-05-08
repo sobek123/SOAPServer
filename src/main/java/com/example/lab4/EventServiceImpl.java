@@ -5,13 +5,14 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.sun.xml.ws.developer.Stateful;
 
 import javax.imageio.ImageIO;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.MTOM;
 import javax.xml.ws.soap.SOAPBinding;
-import java.awt.Image;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +22,7 @@ import java.util.UUID;
 @WebService(endpointInterface = "com.example.lab4.EventService")
 @MTOM
 @BindingType(value = SOAPBinding.SOAP11HTTP_MTOM_BINDING)
+@HandlerChain(file="handler-chain.xml")
 public class EventServiceImpl implements EventService {
     EventList eventList = new EventList();
     @Override
@@ -49,8 +51,11 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event modifyEvent(String name,Event event) throws Throwable{
-        return eventList.modifyEvent(name,event);
+    public void deleteEvent(UUID id) throws Throwable { eventList.deleteEvent(id); }
+
+    @Override
+    public Event modifyEvent(UUID id, Event event) throws Throwable{
+        return eventList.modifyEvent(id,event);
     }
 
     @Override
@@ -87,7 +92,6 @@ public class EventServiceImpl implements EventService {
             table.addCell(pdfPCell);
         });
 
-        EventList eventList = new EventList();
         List<Event> eventList1 = eventList.getEventList();
         int j = 1;
         for(Event event: eventList1){

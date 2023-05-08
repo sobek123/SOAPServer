@@ -1,5 +1,7 @@
 package com.example.lab4;
 
+import org.w3c.dom.NodeList;
+
 import javax.xml.namespace.QName;
 import javax.xml.soap.*;
 import javax.xml.ws.handler.MessageContext;
@@ -8,11 +10,9 @@ import javax.xml.ws.handler.soap.SOAPMessageContext;
 import javax.xml.ws.soap.SOAPFaultException;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
-import java.util.logging.Logger;
 
-public class MACAddressHandler implements SOAPHandler<SOAPMessageContext> {
+public class ApiKeyHandler implements SOAPHandler<SOAPMessageContext> {
     @Override
     public boolean handleMessage(SOAPMessageContext context) {
 
@@ -35,24 +35,18 @@ public class MACAddressHandler implements SOAPHandler<SOAPMessageContext> {
                 }
 
                 //Get client mac address from SOAP header
-                Iterator it = soapHeader.extractHeaderElements(SOAPConstants.URI_SOAP_ACTOR_NEXT);
-
-                //if no header block for next actor found? throw exception
-                if (it == null || !it.hasNext()) {
-                    generateSOAPErrMessage(soapMsg, "No header block for next actor.");
-                }
+                NodeList keyNodeList = soapHeader.getElementsByTagNameNS("*", "Api-Key");
 
                 //if no mac address found? throw exception
-                Node macNode = (Node) it.next();
-                String macValue = (macNode == null) ? null : macNode.getValue();
+                String key = keyNodeList.item(0).getChildNodes().item(0).getNodeValue();
 
-                if (macValue == null) {
-                    generateSOAPErrMessage(soapMsg, "No mac address in header block.");
+                if (key == null) {
+                    generateSOAPErrMessage(soapMsg, "No api key in header block.");
                 }
 
                 //if mac address is not match, throw exception
-                if (!macValue.equals("90-4C-E5-44-B9-8F")) {
-                    generateSOAPErrMessage(soapMsg, "Invalid mac address, access is denied.");
+                if (!key.equals("ZjQzYjE4NjItYzA4Mi00MzBiLTgwZTYtNGRjZDViN2FhNjU0")) {
+                    generateSOAPErrMessage(soapMsg, "Invalid api key, access is denied.");
                 }
 
                 //tracking

@@ -27,7 +27,10 @@ public interface EventService {
     Event addEvent(Event event);
 
     @WebMethod
-    Event modifyEvent(String name,Event event) throws Throwable;
+    void deleteEvent(UUID id) throws Throwable;
+
+    @WebMethod
+    Event modifyEvent(UUID id, Event event) throws Throwable;
 
     @WebMethod
     List<Event> getEvents();

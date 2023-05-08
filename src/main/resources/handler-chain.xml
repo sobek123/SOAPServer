@@ -2,8 +2,8 @@
 <handler-chains xmlns="http://java.sun.com/xml/ns/javaee">
     <handler-chain>
         <handler>
-            <handler-name>com.example.lab4.MACAddressHandler</handler-name>
-            <handler-class>com.example.lab4.MACAddressHandler</handler-class>
+            <handler-name>com.example.lab4.ApiKeyHandler</handler-name>
+            <handler-class>com.example.lab4.ApiKeyHandler</handler-class>
         </handler>
     </handler-chain>
 </handler-chains>

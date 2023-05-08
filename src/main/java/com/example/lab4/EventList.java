@@ -24,15 +24,20 @@ public class EventList {
     }
 
     public Event addToEventList(Event event){
+        if(event.getId() == null) {
+            event.setId(UUID.randomUUID());
+        }
+
         eventList.add(event);
         return event;
     }
 
-    public Event modifyEvent(String name,Event event) throws ArithmeticException, Throwable{
-        Event event1 = eventList.stream().filter(el -> el.getName().equals(name)).findFirst().orElseThrow(() -> {
+    public Event modifyEvent(UUID id, Event event) throws ArithmeticException, Throwable{
+        Event event1 = eventList.stream().filter(el -> el.getId().equals(id)).findFirst().orElseThrow(() -> {
             throw new ArithmeticException();
         });
 
+        event1.setName(event.getName());
         event1.setDetails(event.getDetails());
         event1.setType(event.getType());
         event1.setEventDate(event.getEventDate());
@@ -40,10 +45,17 @@ public class EventList {
         return event1;
     }
 
+    public void deleteEvent(UUID id) throws ArithmeticException, Throwable {
+        Event event1 = eventList.stream().filter(el -> el.getId().equals(id)).findFirst().orElseThrow(() -> {
+            throw new ArithmeticException();
+        });
+
+        eventList.remove(event1);
+    }
+
     public Event getEventById(UUID id) throws Exception {
         return eventList.stream().filter(el -> el.getId().equals(id)).findFirst().orElseThrow(Exception::new);
     }
-
 
     public List<Event> getEventsByDay(int day) {
         return eventList.stream().filter(el -> el.getDay().equals(day)).collect(Collectors.toList());
