@@ -34,19 +34,20 @@ public class ApiKeyHandler implements SOAPHandler<SOAPMessageContext> {
                     generateSOAPErrMessage(soapMsg, "No SOAP header.");
                 }
 
-                //Get client mac address from SOAP header
-                NodeList keyNodeList = soapHeader.getElementsByTagNameNS("*", "Api-Key");
+                try {
+                    NodeList keyNodeList = soapHeader.getElementsByTagNameNS("*", "Api-Key");
 
-                //if no mac address found? throw exception
-                String key = keyNodeList.item(0).getChildNodes().item(0).getNodeValue();
+                    String key = keyNodeList.item(0).getChildNodes().item(0).getNodeValue();
 
-                if (key == null) {
-                    generateSOAPErrMessage(soapMsg, "No api key in header block.");
-                }
+                    if (key == null) {
+                        generateSOAPErrMessage(soapMsg, "No api key in header block.");
+                    }
 
-                //if mac address is not match, throw exception
-                if (!key.equals("ZjQzYjE4NjItYzA4Mi00MzBiLTgwZTYtNGRjZDViN2FhNjU0")) {
-                    generateSOAPErrMessage(soapMsg, "Invalid api key, access is denied.");
+                    if (!key.equals("ZjQzYjE4NjItYzA4Mi00MzBiLTgwZTYtNGRjZDViN2FhNjU0")) {
+                        generateSOAPErrMessage(soapMsg, "Invalid api key, access is denied.");
+                    }
+                } catch(Exception e) {
+                    generateSOAPErrMessage(soapMsg, "Access denied");
                 }
 
                 //tracking

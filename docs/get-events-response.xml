@@ -1,0 +1,27 @@
+HTTP/1.1 200 
+Content-Type: text/xml;charset=utf-8
+Transfer-Encoding: chunked
+Date: Mon, 08 May 2023 13:26:31 GMT
+
+<?xml version='1.0' encoding='UTF-8'?>
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+    <S:Body>
+        <ns2:getEventsResponse xmlns:ns2="http://lab4.example.com/">
+            <return>
+                <details>Default Details</details>
+                <eventDate>2023-05-08T15:21:29.836+02:00</eventDate>
+                <id>618e8a70-5f63-46c4-893c-36e5569b8a2d</id>
+                <name>Default Name</name>
+                <type>Default Type</type>
+            </return>
+            <return>
+                <details>Describe your event3</details>
+                <eventDate>2023-05-08T00:00:00+02:00</eventDate>
+                <id>ac541043-544e-46b3-bfac-64e1076da3f7</id>
+                <name>New event3</name>
+                <type>Specify the type of event3</type>
+            </return>
+        </ns2:getEventsResponse>
+    </S:Body>
+</S:Envelope>
+0

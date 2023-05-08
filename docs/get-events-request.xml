@@ -1,0 +1,18 @@
+POST /lab4_war_exploded/EventService HTTP/1.1
+Host: localhost
+Cache-Control: no-cache, max-age=0
+SOAPAction: "http://lab4.example.com/EventService/getEventsRequest"
+Accept-Encoding: gzip, deflate
+traceparent: 00-f9889dd27085f974842ef7f8cd6e1987-7ccbc1153e560087-00
+Content-Type: text/xml; charset=utf-8
+Content-Length: 359
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Header>
+        <Api-Key xmlns="http://lab4.example.com/">{API-KEY}</Api-Key>
+    </s:Header>
+    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <getEvents xmlns="http://lab4.example.com/"/>
+    </s:Body>
+</s:Envelope>

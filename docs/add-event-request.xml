@@ -1,0 +1,25 @@
+POST /lab4_war_exploded/EventService HTTP/1.1
+Host: localhost
+Cache-Control: no-cache, max-age=0
+SOAPAction: "http://lab4.example.com/EventService/addEventRequest"
+Accept-Encoding: gzip, deflate
+traceparent: 00-5af63726275d11b67d4daadfb07ab3d2-46b1b50ba224e461-00
+Content-Type: text/xml; charset=utf-8
+Content-Length: 533
+
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+    <s:Header>
+        <Api-Key xmlns="http://lab4.example.com/">API-KEY</Api-Key>
+    </s:Header>
+    <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <addEvent xmlns="http://lab4.example.com/">
+            <arg0 xmlns="">
+                <details>Describe your event3</details>
+                <eventDate>2023-05-08T00:00:00</eventDate>
+                <name>New event3</name>
+                <type>Specify the type of event3</type>
+            </arg0>
+        </addEvent>
+    </s:Body>
+</s:Envelope>
